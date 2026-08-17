@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plan Marathon de Vannes — 27 septembre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ivoire:#F8F7F5;--encre:#16130F;--or:#B08A4A;--brume:#DEDAD3;--estompe:#8A8378;--pli:#EDEAE5}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ivoire);color:var(--encre);font-family:"DM Sans",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-weight:300;line-height:1.5;padding:0 0 4rem;max-width:640px;margin:0 auto}
+.wrap{padding:0 1.25rem}
+header{padding:2.75rem 1.25rem 1.75rem}
+.eyebrow{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+h1{font-family:"Cormorant Garamond",Georgia,"Times New Roman",serif;font-weight:300;font-size:2.6rem;line-height:1.02;letter-spacing:-.01em;margin:.6rem 0 0}
+h1 em{font-style:italic;color:var(--or)}
+.meta{display:flex;align-items:baseline;gap:.9rem;margin-top:1.1rem;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem;color:var(--estompe);letter-spacing:.03em;flex-wrap:wrap}
+.profil{margin:1.75rem 1.25rem 0;padding-top:1.4rem;border-top:1px solid var(--brume)}
+.profil-label{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);margin-bottom:.9rem}
+.bars{display:flex;align-items:flex-end;gap:.4rem;height:74px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.4rem;height:100%;text-decoration:none;color:inherit}
+.bar-fill{width:100%;background:var(--brume);border-radius:1px}
+.bar-num{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;color:var(--estompe)}
+.allures{margin:2rem 0 0;padding:1.25rem;border:1px solid var(--brume)}
+.allures h2{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);margin-bottom:.85rem}
+.allure-row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px dotted var(--brume);gap:1rem}
+.allure-row:last-child{border-bottom:0;padding-bottom:0}
+.allure-nom{font-size:.875rem}
+.allure-val{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.8125rem;white-space:nowrap}
+.allure-row.cle .allure-nom,.allure-row.cle .allure-val{color:var(--or)}
+.allure-row.cle .allure-val{font-weight:500}
+.semaines{margin-top:2.5rem}
+.semaine{border-top:1px solid var(--brume)}
+.semaine:last-of-type{border-bottom:1px solid var(--brume)}
+summary{display:flex;align-items:center;gap:.9rem;padding:1.15rem 1.25rem;cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+.num{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--or);width:1.6rem;flex-shrink:0}
+.tete-txt{flex:1;min-width:0}
+.tete-titre{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.4rem;line-height:1.15;display:block}
+.tete-titre em{font-style:italic;color:var(--or)}
+.tete-sous{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--estompe);margin-top:.2rem;letter-spacing:.02em;display:block}
+.chev{width:9px;height:9px;border-right:1px solid var(--estompe);border-bottom:1px solid var(--estompe);transform:rotate(45deg);flex-shrink:0;margin-top:-4px}
+details[open] .chev{transform:rotate(-135deg);margin-top:3px}
+.corps{padding:0 1.25rem 1.4rem}
+.jour{display:flex;gap:.9rem;padding:.85rem 0;border-bottom:1px dotted var(--brume)}
+.jour:last-of-type{border-bottom:0}
+.coche{flex-shrink:0;width:19px;height:19px;margin-top:.15rem;border:1px solid var(--brume);border-radius:50%;-webkit-appearance:none;appearance:none;background:none;cursor:pointer;position:relative}
+.coche:checked{background:var(--or);border-color:var(--or)}
+.coche:checked::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:9px;border-right:1.5px solid var(--ivoire);border-bottom:1.5px solid var(--ivoire);transform:rotate(42deg)}
+.jour-corps{flex:1;min-width:0}
+.jour-tete{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
+.jour-date{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--estompe);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
+.jour-titre{font-size:.9375rem}
+.jour-detail{font-size:.8125rem;color:var(--estompe);margin-top:.25rem;line-height:1.45}
+.jour-allure{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem;color:var(--or);margin-top:.3rem;letter-spacing:.02em}
+.jour.repos .coche{visibility:hidden}
+.jour.repos .jour-titre{color:var(--estompe);font-style:italic}
+.jour.cle .jour-titre{color:var(--or)}
+.jour.course{border-bottom:0;margin-top:.5rem;padding:1.1rem;background:var(--pli)}
+.jour.course .coche{visibility:hidden}
+.jour.course .jour-titre{font-family:"Cormorant Garamond",Georgia,serif;font-size:1.5rem;color:var(--or)}
+.note{padding:.9rem 0 0;margin-top:.9rem;border-top:1px solid var(--brume);font-size:.8125rem;color:var(--estompe);line-height:1.55}
+.note b{color:var(--encre);font-weight:400}
+.rappels{margin-top:2.5rem}
+.rappels h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;font-size:1.6rem;margin-bottom:.9rem}
+.rappel{padding:.85rem 0;border-top:1px solid var(--brume);font-size:.875rem;line-height:1.55}
+.rappel b{display:block;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:400;margin-bottom:.3rem}
+footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--brume);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.08em;color:var(--estompe)}
+a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Courir pour Danièle</div>
+<h1>Six semaines<br>jusqu'à <em>Vannes</em></h1>
+<div class="meta"><span>27 sept. 2026 · départ 9 h 30</span><span>3 h 30 · 4:58 / km</span></div></header>
+<section class="profil"><div class="profil-label">Charge hebdomadaire — touchez pour ouvrir</div><div class="bars">
+<a class="bar" href="#s1"><span class="bar-fill" style="height:48px"></span><span class="bar-num">1</span></a>
+<a class="bar" href="#s2"><span class="bar-fill" style="height:52px"></span><span class="bar-num">2</span></a>
+<a class="bar" href="#s3"><span class="bar-fill" style="height:46px"></span><span class="bar-num">3</span></a>
+<a class="bar" href="#s4"><span class="bar-fill" style="height:56px"></span><span class="bar-num">4</span></a>
+<a class="bar" href="#s5"><span class="bar-fill" style="height:46px"></span><span class="bar-num">5</span></a>
+<a class="bar" href="#s6"><span class="bar-fill" style="height:31px"></span><span class="bar-num">6</span></a>
+</div></section>
+<div class="wrap"><section class="allures"><h2>Vos allures</h2>
+<div class="allure-row"><span class="allure-nom">Récupération</span><span class="allure-val">6:15 – 6:30</span></div>
+<div class="allure-row cle"><span class="allure-nom">Endurance fondamentale</span><span class="allure-val">5:45 – 6:15</span></div>
+<div class="allure-row cle"><span class="allure-nom">Allure marathon</span><span class="allure-val">4:58</span></div>
+<div class="allure-row"><span class="allure-nom">Seuil</span><span class="allure-val">4:35 – 4:40</span></div>
+<div class="allure-row"><span class="allure-nom">1000 m</span><span class="allure-val">4:20 – 4:25</span></div>
+</section></div>
+<section class="semaines">
+<details class="semaine" id="s1" open><summary><span class="num">01</span><span class="tete-txt"><span class="tete-titre">Prise de marque</span><span class="tete-sous">17 – 23 août · 55 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 17</span><span class="jour-titre">Sortie longue — 24 km</span></div>
+<div class="jour-detail">Sur le parcours, sens de la course. Objectif : finir en se disant qu'on aurait pu continuer.</div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 18</span><span class="jour-titre">Footing récup 45 min + renfo 20 min</span></div>
+<div class="jour-detail">Gainage, mollets, fessiers.</div>
+<div class="jour-allure">6:15 – 6:30</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 19</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 20</span><span class="jour-titre">Seuil — 3 × 8 min</span></div>
+<div class="jour-detail">20 min échauffement, récup 3 min trot, 10 min retour au calme.</div>
+<div class="jour-allure">Seuil 4:35 – 4:40</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 21</span><span class="jour-titre">Repos ou renfo léger</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 22</span><span class="jour-titre">Footing 10 km</span></div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 23</span><span class="jour-titre">Repos — retour à Vannes</span></div>
+</div></div>
+<div class="note"><b>Note.</b> Semaine d'installation. Tenez l'allure basse même si elle vous frustre.</div>
+</div></details>
+<details class="semaine" id="s2"><summary><span class="num">02</span><span class="tete-txt"><span class="tete-titre">Premier bloc</span><span class="tete-sous">24 – 30 août · 60 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 24</span><span class="jour-titre">Sortie longue — 28 km</span></div>
+<div class="jour-detail">Les 8 derniers kilomètres à allure marathon. Premier test des gels.</div>
+<div class="jour-allure">EF puis 4:58</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 25</span><span class="jour-titre">Footing récup 45 min + renfo</span></div>
+<div class="jour-allure">6:15 – 6:30</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 26</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 27</span><span class="jour-titre">5 × 1000 m</span></div>
+<div class="jour-detail">Récup 2 min. Échauffement et retour au calme complets.</div>
+<div class="jour-allure">4:20 – 4:25</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 28</span><span class="jour-titre">Renfo 25 min</span></div>
+<div class="jour-detail">Sans course à pied.</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 29</span><span class="jour-titre">Footing 12 km</span></div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 30</span><span class="jour-titre">Repos — retour à Vannes</span></div>
+</div></div>
+<div class="note"><b>Note.</b> Le bloc allure marathon en fin de longue est la séance clé du plan.</div>
+</div></details>
+<details class="semaine" id="s3"><summary><span class="num">03</span><span class="tete-txt"><span class="tete-titre">Respiration</span><span class="tete-sous">31 août – 6 sept. · 53 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 31</span><span class="jour-titre">Sortie longue — 22 km</span></div>
+<div class="jour-detail">Tranquille, sans bloc rapide. Semaine allégée volontairement.</div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 1</span><span class="jour-titre">Footing récup 40 min + renfo</span></div>
+<div class="jour-allure">6:15 – 6:30</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 2</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 3</span><span class="jour-titre">Seuil — 2 × 15 min</span></div>
+<div class="jour-detail">Récup 4 min. Le plus long effort continu du plan.</div>
+<div class="jour-allure">Seuil 4:35 – 4:40</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 4</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 5</span><span class="jour-titre">Footing 10 km + 5 × 30 s</span></div>
+<div class="jour-detail">Accélérations progressives en fin de footing.</div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 6</span><span class="jour-titre">Repos — retour à Vannes</span></div>
+</div></div>
+<div class="note"><b>Note.</b> Charge en baisse pour arriver frais sur la semaine du 32 km.</div>
+</div></details>
+<details class="semaine" id="s4"><summary><span class="num">04</span><span class="tete-txt"><span class="tete-titre">Le pic</span><span class="tete-sous">7 – 13 sept. · 64 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 7</span><span class="jour-titre">Sortie longue — 32 km</span></div>
+<div class="jour-detail">Répétition générale. Départ 9 h 30, parcours réel, protocole nutrition complet, chaussures du jour J.</div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 8</span><span class="jour-titre">Footing très léger 40 min</span></div>
+<div class="jour-detail">Ou marche si les jambes sont lourdes. Étirements.</div>
+<div class="jour-allure">6:30</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 9</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 10</span><span class="jour-titre">Seuil — 3 × 10 min</span></div>
+<div class="jour-detail">Récup 3 min. Ne forcez pas si le 32 km a laissé des traces.</div>
+<div class="jour-allure">Seuil 4:35 – 4:40</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 11</span><span class="jour-titre">Renfo 25 min</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 12</span><span class="jour-titre">Footing 12 km</span></div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 13</span><span class="jour-titre">Repos — retour à Vannes</span></div>
+</div></div>
+<div class="note"><b>Note.</b> Semaine la plus lourde. Tout ce qui vient ensuite ne fait que descendre.</div>
+</div></details>
+<details class="semaine" id="s5"><summary><span class="num">05</span><span class="tete-txt"><span class="tete-titre">Affûtage</span><span class="tete-sous">14 – 20 sept. · 53 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 14</span><span class="jour-titre">Sortie longue — 24 km</span></div>
+<div class="jour-detail">Dont 10 km à allure marathon en milieu de sortie. Dernière longue.</div>
+<div class="jour-allure">EF puis 4:58</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 15</span><span class="jour-titre">Footing 40 min + renfo léger</span></div>
+<div class="jour-allure">6:15 – 6:30</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 16</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 17</span><span class="jour-titre">4 × 1000 m</span></div>
+<div class="jour-detail">Récup 2 min. Sensation de facilité recherchée, pas de performance.</div>
+<div class="jour-allure">4:20 – 4:25</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 18</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 19</span><span class="jour-titre">Footing 10 km</span></div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 20</span><span class="jour-titre">Repos — retour à Vannes</span></div>
+</div></div>
+<div class="note"><b>Note.</b> Le volume baisse, l'intensité reste. C'est ce qui vous rendra frais.</div>
+</div></details>
+<details class="semaine" id="s6"><summary><span class="num">06</span><span class="tete-txt"><span class="tete-titre"><em>La semaine</em></span><span class="tete-sous">21 – 27 sept. · 35 km</span></span><span class="chev"></span></summary><div class="corps">
+<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 21</span><span class="jour-titre">16 km dont 5 km à allure marathon</span></div>
+<div class="jour-detail">Sur le final du parcours. Dernière vraie séance.</div>
+<div class="jour-allure">EF puis 4:58</div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 22</span><span class="jour-titre">Footing 40 min</span></div>
+<div class="jour-allure">EF 5:45 – 6:15</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 23</span><span class="jour-titre">Repos</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 24</span><span class="jour-titre">Déverrouillage — 8 km + 4 × 1 min</span></div>
+<div class="jour-detail">Quatre minutes à allure marathon, disséminées. Rien de plus.</div>
+<div class="jour-allure">4:58</div>
+</div></div>
+<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 25</span><span class="jour-titre">Repos total</span></div>
+</div></div>
+<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 26</span><span class="jour-titre">20 min très léger + 3 lignes droites</span></div>
+<div class="jour-detail">Jambes ouvertes, rien d'autre. Dossard préparé la veille.</div>
+<div class="jour-allure">6:30</div>
+</div></div>
+<div class="jour course"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 27</span><span class="jour-titre">Marathon de Vannes</span></div>
+<div class="jour-detail">Départ 9 h 30. Les 10 premiers kilomètres à 5:05 — plus lent que l'objectif. Vous rattraperez après le 30e.</div>
+</div></div>
+<div class="note"><b>Note.</b> Les jambes vont sembler engourdies en milieu de semaine. C'est normal, c'est l'affûtage.</div>
+</div></details>
+</section>
+<div class="wrap"><section class="rappels"><h2>À garder en tête</h2>
+<div class="rappel"><b>Le mercredi</b>Reprise du travail après deux jours de repos. Rien de dur ce jour-là, jamais de séance de seuil.</div>
+<div class="rappel"><b>Services coupés</b>Le créneau du milieu d'après-midi accueille les séances courtes. Les longues restent sur vos lundis, à Vannes.</div>
+<div class="rappel"><b>Tibias</b>Antécédents de loges antérieures : à la moindre tension sur le devant du tibia, coupez la séance et allégez la semaine. Gardez la cadence haute, la foulée courte.</div>
+<div class="rappel"><b>Nutrition</b>Gels et boisson se testent dès la sortie de 28 km. Le 7 septembre est la répétition générale : même heure, même parcours, même protocole.</div>
+<div class="rappel"><b>Séance manquée</b>Elle ne se rattrape pas, elle s'oublie. Ne chargez jamais la suivante.</div>
+</section><footer>LPC — Institut Curie</footer></div>
+</body>
+</html>
