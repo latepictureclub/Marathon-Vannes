@@ -21,8 +21,25 @@ h1 em{font-style:italic;color:var(--or)}
 .profil-label{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);margin-bottom:.9rem}
 .bars{display:flex;align-items:flex-end;gap:.4rem;height:74px}
 .bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.4rem;height:100%;text-decoration:none;color:inherit}
-.bar-fill{width:100%;background:var(--brume);border-radius:1px}
+.bar-fill{width:100%;background:var(--brume);border-radius:1px;position:relative;overflow:hidden}
+.bar-real{position:absolute;left:0;bottom:0;width:100%;height:0;background:var(--or);border-radius:1px}
 .bar-num{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;color:var(--estompe)}
+.bandeau{position:sticky;top:0;z-index:20;background:var(--encre);color:var(--ivoire);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem;letter-spacing:.02em;line-height:1.5;padding:.7rem 1.25rem;border-bottom:1px solid var(--or);text-align:center}
+nav.tabs{display:flex;margin:0 1.25rem;border-bottom:1px solid var(--brume)}
+.tab-btn{flex:1;min-height:44px;padding:.75rem 0;background:none;border:none;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab-btn[aria-pressed="true"]{color:var(--or);border-bottom-color:var(--or)}
+.tab-panel[hidden]{display:none}
+.outil{margin:1.25rem 0 0;padding:1.25rem;border:1px solid var(--brume)}
+.outil h2{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);margin-bottom:.5rem}
+.outil-note{font-size:.75rem;color:var(--estompe);line-height:1.5;margin-bottom:.9rem}
+.outil-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px dotted var(--brume);gap:1rem}
+.outil-row:last-child{border-bottom:0}
+.outil-row label{font-size:.875rem}
+.outil-input{font:inherit;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.9375rem;padding:.5rem .6rem;border:1px solid var(--brume);border-radius:2px;background:var(--ivoire);color:var(--encre);width:7.5rem;text-align:right;min-height:44px}
+table.splits{width:100%;border-collapse:collapse;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem}
+table.splits th{text-align:left;font-weight:400;letter-spacing:.08em;text-transform:uppercase;font-size:.625rem;color:var(--estompe);padding:.5rem .3rem;border-bottom:1px solid var(--brume)}
+table.splits td{padding:.55rem .3rem;border-bottom:1px dotted var(--brume)}
+table.splits tr:last-child td{border-bottom:0;color:var(--or)}
 .allures{margin:2rem 0 0;padding:1.25rem;border:1px solid var(--brume)}
 .allures h2{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--estompe);margin-bottom:.85rem}
 .allure-row{display:flex;justify-content:space-between;align-items:baseline;padding:.45rem 0;border-bottom:1px dotted var(--brume);gap:1rem}
@@ -46,10 +63,32 @@ details[open] .chev{transform:rotate(-135deg);margin-top:3px}
 .corps{padding:0 1.25rem 1.4rem}
 .jour{display:flex;gap:.9rem;padding:.85rem 0;border-bottom:1px dotted var(--brume)}
 .jour:last-of-type{border-bottom:0}
-.coche{flex-shrink:0;width:19px;height:19px;margin-top:.15rem;border:1px solid var(--brume);border-radius:50%;-webkit-appearance:none;appearance:none;background:none;cursor:pointer;position:relative}
-.coche:checked{background:var(--or);border-color:var(--or)}
-.coche:checked::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:9px;border-right:1.5px solid var(--ivoire);border-bottom:1.5px solid var(--ivoire);transform:rotate(42deg)}
-.jour-corps{flex:1;min-width:0}
+.coche{flex-shrink:0;width:19px;height:19px;margin-top:.15rem;padding:0;border:1px solid var(--brume);border-radius:50%;-webkit-appearance:none;appearance:none;background:none;cursor:pointer;position:relative}
+.coche::before{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.coche[data-statut="fait"]{background:var(--or);border-color:var(--or)}
+.coche[data-statut="fait"]::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:9px;border-right:1.5px solid var(--ivoire);border-bottom:1.5px solid var(--ivoire);transform:rotate(42deg)}
+.coche[data-statut="manque"]{background:var(--estompe);border-color:var(--estompe)}
+.coche[data-statut="manque"]::after{content:"×";position:absolute;left:0;top:0;width:100%;height:100%;color:var(--ivoire);font-size:.75rem;line-height:19px;text-align:center;font-family:"DM Mono",ui-monospace,Menlo,monospace}
+.jour-corps{flex:1;min-width:0;cursor:pointer}
+.jour.repos .jour-corps,.jour.aujourdhui .jour-corps{cursor:default}
+.jour.aujourdhui{background:var(--pli)}
+.fiche{margin-top:.75rem;padding:.9rem;background:var(--pli);border:1px solid var(--brume);border-radius:2px}
+.fiche[hidden]{display:none}
+.fiche-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem .8rem}
+.fiche-champ{display:flex;flex-direction:column;gap:.25rem}
+.fiche-champ.pleine{grid-column:1 / -1}
+.fiche-champ label{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.08em;text-transform:uppercase;color:var(--estompe)}
+.fiche-champ input,.fiche-champ textarea{font:inherit;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.8125rem;padding:.5rem .55rem;border:1px solid var(--brume);border-radius:2px;background:var(--ivoire);color:var(--encre);min-height:44px}
+.fiche-champ textarea{font-family:"DM Sans",sans-serif;resize:vertical}
+.fiche-grid .fiche-champ input{font-size:1.125rem;font-weight:500;padding:.6rem .65rem;min-height:52px;text-align:center;border-color:var(--estompe)}
+.fiche-grid .fiche-champ input:focus{border-color:var(--or);outline:none}
+.fiche-grid .fiche-champ input::placeholder{color:var(--brume);font-weight:300}
+.fiche-ecart{margin-top:.75rem;padding-top:.75rem;border-top:1px dotted var(--brume);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.8125rem}
+.fiche-ecart .plus{color:var(--estompe)}
+.fiche-ecart .moins{color:var(--or)}
+.fiche-scale{display:flex;gap:.4rem;margin-top:.3rem}
+.fiche-scale button{flex:1;min-height:40px;border:1px solid var(--brume);background:var(--ivoire);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem;color:var(--estompe);border-radius:2px;cursor:pointer}
+.fiche-scale button[aria-pressed="true"]{background:var(--or);border-color:var(--or);color:var(--ivoire)}
 .jour-tete{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
 .jour-date{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--estompe);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .jour-titre{font-size:.9375rem}
@@ -68,20 +107,23 @@ details[open] .chev{transform:rotate(-135deg);margin-top:3px}
 .rappel{padding:.85rem 0;border-top:1px solid var(--brume);font-size:.875rem;line-height:1.55}
 .rappel b{display:block;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:400;margin-bottom:.3rem}
 footer{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--brume);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.08em;color:var(--estompe)}
-a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+a:focus-visible,summary:focus-visible,input:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid var(--or);outline-offset:3px}
 </style>
 </head>
 <body>
+<div class="bandeau" id="bandeau" hidden>⚠ Douleur tibiale répétée — allégez la semaine, cadence haute, foulée courte.</div>
 <header><div class="eyebrow">Courir pour Danièle</div>
 <h1>Six semaines<br>jusqu'à <em>Vannes</em></h1>
 <div class="meta"><span>27 sept. 2026 · départ 9 h 30</span><span>3 h 30 · 4:58 / km</span></div></header>
+<nav class="tabs"><button type="button" class="tab-btn" data-tab="plan" aria-pressed="true">Plan</button><button type="button" class="tab-btn" data-tab="allures" aria-pressed="false">Allures</button></nav>
+<div id="tab-plan" class="tab-panel">
 <section class="profil"><div class="profil-label">Charge hebdomadaire — touchez pour ouvrir</div><div class="bars">
-<a class="bar" href="#s1"><span class="bar-fill" style="height:48px"></span><span class="bar-num">1</span></a>
-<a class="bar" href="#s2"><span class="bar-fill" style="height:52px"></span><span class="bar-num">2</span></a>
-<a class="bar" href="#s3"><span class="bar-fill" style="height:46px"></span><span class="bar-num">3</span></a>
-<a class="bar" href="#s4"><span class="bar-fill" style="height:56px"></span><span class="bar-num">4</span></a>
-<a class="bar" href="#s5"><span class="bar-fill" style="height:46px"></span><span class="bar-num">5</span></a>
-<a class="bar" href="#s6"><span class="bar-fill" style="height:31px"></span><span class="bar-num">6</span></a>
+<a class="bar" href="#s1"><span class="bar-fill" style="height:48px"><span class="bar-real" id="bar-real-s1"></span></span><span class="bar-num" id="bar-num-s1">1</span></a>
+<a class="bar" href="#s2"><span class="bar-fill" style="height:52px"><span class="bar-real" id="bar-real-s2"></span></span><span class="bar-num" id="bar-num-s2">2</span></a>
+<a class="bar" href="#s3"><span class="bar-fill" style="height:46px"><span class="bar-real" id="bar-real-s3"></span></span><span class="bar-num" id="bar-num-s3">3</span></a>
+<a class="bar" href="#s4"><span class="bar-fill" style="height:56px"><span class="bar-real" id="bar-real-s4"></span></span><span class="bar-num" id="bar-num-s4">4</span></a>
+<a class="bar" href="#s5"><span class="bar-fill" style="height:46px"><span class="bar-real" id="bar-real-s5"></span></span><span class="bar-num" id="bar-num-s5">5</span></a>
+<a class="bar" href="#s6"><span class="bar-fill" style="height:31px"><span class="bar-real" id="bar-real-s6"></span></span><span class="bar-num" id="bar-num-s6">6</span></a>
 </div></section>
 <div class="wrap"><section class="allures"><h2>Vos allures</h2>
 <div class="allure-row"><span class="allure-nom">Récupération</span><span class="allure-val">6:15 – 6:30</span></div>
@@ -92,186 +134,186 @@ a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(
 </section></div>
 <section class="semaines">
 <details class="semaine" id="s1" open><summary><span class="num">01</span><span class="tete-txt"><span class="tete-titre">Prise de marque</span><span class="tete-sous">17 – 23 août · 55 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-08-17"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 17</span><span class="jour-titre">Sortie longue — 24 km</span></div>
 <div class="jour-detail">Sur le parcours, sens de la course. Objectif : finir en se disant qu'on aurait pu continuer.</div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-08-18"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 18</span><span class="jour-titre">Footing récup 45 min + renfo 20 min</span></div>
 <div class="jour-detail">Gainage, mollets, fessiers.</div>
 <div class="jour-allure">6:15 – 6:30</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-08-19"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 19</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-08-20"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 20</span><span class="jour-titre">Seuil — 3 × 8 min</span></div>
 <div class="jour-detail">20 min échauffement, récup 3 min trot, 10 min retour au calme.</div>
 <div class="jour-allure">Seuil 4:35 – 4:40</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-08-21"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 21</span><span class="jour-titre">Repos ou renfo léger</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-08-22"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 22</span><span class="jour-titre">Footing 10 km</span></div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-08-23"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 23</span><span class="jour-titre">Repos — retour à Vannes</span></div>
 </div></div>
 <div class="note"><b>Note.</b> Semaine d'installation. Tenez l'allure basse même si elle vous frustre.</div>
 </div></details>
 <details class="semaine" id="s2"><summary><span class="num">02</span><span class="tete-txt"><span class="tete-titre">Premier bloc</span><span class="tete-sous">24 – 30 août · 60 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-08-24"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 24</span><span class="jour-titre">Sortie longue — 28 km</span></div>
 <div class="jour-detail">Les 8 derniers kilomètres à allure marathon. Premier test des gels.</div>
 <div class="jour-allure">EF puis 4:58</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-08-25"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 25</span><span class="jour-titre">Footing récup 45 min + renfo</span></div>
 <div class="jour-allure">6:15 – 6:30</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-08-26"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 26</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-08-27"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 27</span><span class="jour-titre">5 × 1000 m</span></div>
 <div class="jour-detail">Récup 2 min. Échauffement et retour au calme complets.</div>
 <div class="jour-allure">4:20 – 4:25</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-08-28"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 28</span><span class="jour-titre">Renfo 25 min</span></div>
 <div class="jour-detail">Sans course à pied.</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-08-29"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 29</span><span class="jour-titre">Footing 12 km</span></div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-08-30"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 30</span><span class="jour-titre">Repos — retour à Vannes</span></div>
 </div></div>
 <div class="note"><b>Note.</b> Le bloc allure marathon en fin de longue est la séance clé du plan.</div>
 </div></details>
 <details class="semaine" id="s3"><summary><span class="num">03</span><span class="tete-txt"><span class="tete-titre">Respiration</span><span class="tete-sous">31 août – 6 sept. · 53 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-08-31"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 31</span><span class="jour-titre">Sortie longue — 22 km</span></div>
 <div class="jour-detail">Tranquille, sans bloc rapide. Semaine allégée volontairement.</div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-01"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 1</span><span class="jour-titre">Footing récup 40 min + renfo</span></div>
 <div class="jour-allure">6:15 – 6:30</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-02"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 2</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-03"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 3</span><span class="jour-titre">Seuil — 2 × 15 min</span></div>
 <div class="jour-detail">Récup 4 min. Le plus long effort continu du plan.</div>
 <div class="jour-allure">Seuil 4:35 – 4:40</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-04"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 4</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-05"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 5</span><span class="jour-titre">Footing 10 km + 5 × 30 s</span></div>
 <div class="jour-detail">Accélérations progressives en fin de footing.</div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-06"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 6</span><span class="jour-titre">Repos — retour à Vannes</span></div>
 </div></div>
 <div class="note"><b>Note.</b> Charge en baisse pour arriver frais sur la semaine du 32 km.</div>
 </div></details>
 <details class="semaine" id="s4"><summary><span class="num">04</span><span class="tete-txt"><span class="tete-titre">Le pic</span><span class="tete-sous">7 – 13 sept. · 64 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-07"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 7</span><span class="jour-titre">Sortie longue — 32 km</span></div>
 <div class="jour-detail">Répétition générale. Départ 9 h 30, parcours réel, protocole nutrition complet, chaussures du jour J.</div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-08"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 8</span><span class="jour-titre">Footing très léger 40 min</span></div>
 <div class="jour-detail">Ou marche si les jambes sont lourdes. Étirements.</div>
 <div class="jour-allure">6:30</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-09"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 9</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-10"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 10</span><span class="jour-titre">Seuil — 3 × 10 min</span></div>
 <div class="jour-detail">Récup 3 min. Ne forcez pas si le 32 km a laissé des traces.</div>
 <div class="jour-allure">Seuil 4:35 – 4:40</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-11"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 11</span><span class="jour-titre">Renfo 25 min</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-12"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 12</span><span class="jour-titre">Footing 12 km</span></div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-13"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 13</span><span class="jour-titre">Repos — retour à Vannes</span></div>
 </div></div>
 <div class="note"><b>Note.</b> Semaine la plus lourde. Tout ce qui vient ensuite ne fait que descendre.</div>
 </div></details>
 <details class="semaine" id="s5"><summary><span class="num">05</span><span class="tete-txt"><span class="tete-titre">Affûtage</span><span class="tete-sous">14 – 20 sept. · 53 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-14"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 14</span><span class="jour-titre">Sortie longue — 24 km</span></div>
 <div class="jour-detail">Dont 10 km à allure marathon en milieu de sortie. Dernière longue.</div>
 <div class="jour-allure">EF puis 4:58</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-15"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 15</span><span class="jour-titre">Footing 40 min + renfo léger</span></div>
 <div class="jour-allure">6:15 – 6:30</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-16"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 16</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-17"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 17</span><span class="jour-titre">4 × 1000 m</span></div>
 <div class="jour-detail">Récup 2 min. Sensation de facilité recherchée, pas de performance.</div>
 <div class="jour-allure">4:20 – 4:25</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-18"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 18</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-19"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 19</span><span class="jour-titre">Footing 10 km</span></div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-20"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 20</span><span class="jour-titre">Repos — retour à Vannes</span></div>
 </div></div>
 <div class="note"><b>Note.</b> Le volume baisse, l'intensité reste. C'est ce qui vous rendra frais.</div>
 </div></details>
 <details class="semaine" id="s6"><summary><span class="num">06</span><span class="tete-txt"><span class="tete-titre"><em>La semaine</em></span><span class="tete-sous">21 – 27 sept. · 35 km</span></span><span class="chev"></span></summary><div class="corps">
-<div class="jour cle"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour cle" data-date="2026-09-21"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Lun 21</span><span class="jour-titre">16 km dont 5 km à allure marathon</span></div>
 <div class="jour-detail">Sur le final du parcours. Dernière vraie séance.</div>
 <div class="jour-allure">EF puis 4:58</div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-22"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mar 22</span><span class="jour-titre">Footing 40 min</span></div>
 <div class="jour-allure">EF 5:45 – 6:15</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-23"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Mer 23</span><span class="jour-titre">Repos</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-24"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Jeu 24</span><span class="jour-titre">Déverrouillage — 8 km + 4 × 1 min</span></div>
 <div class="jour-detail">Quatre minutes à allure marathon, disséminées. Rien de plus.</div>
 <div class="jour-allure">4:58</div>
 </div></div>
-<div class="jour repos"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour repos" data-date="2026-09-25"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Ven 25</span><span class="jour-titre">Repos total</span></div>
 </div></div>
-<div class="jour"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour" data-date="2026-09-26"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Sam 26</span><span class="jour-titre">20 min très léger + 3 lignes droites</span></div>
 <div class="jour-detail">Jambes ouvertes, rien d'autre. Dossard préparé la veille.</div>
 <div class="jour-allure">6:30</div>
 </div></div>
-<div class="jour course"><input type="checkbox" class="coche" aria-label="Séance faite">
+<div class="jour course" data-date="2026-09-27"><button type="button" class="coche" data-statut="prevu" aria-label="Statut de la séance"></button>
 <div class="jour-corps"><div class="jour-tete"><span class="jour-date">Dim 27</span><span class="jour-titre">Marathon de Vannes</span></div>
 <div class="jour-detail">Départ 9 h 30. Les 10 premiers kilomètres à 5:05 — plus lent que l'objectif. Vous rattraperez après le 30e.</div>
 </div></div>
@@ -285,5 +327,301 @@ a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(
 <div class="rappel"><b>Nutrition</b>Gels et boisson se testent dès la sortie de 28 km. Le 7 septembre est la répétition générale : même heure, même parcours, même protocole.</div>
 <div class="rappel"><b>Séance manquée</b>Elle ne se rattrape pas, elle s'oublie. Ne chargez jamais la suivante.</div>
 </section><footer>LPC — Institut Curie</footer></div>
+</div>
+<div id="tab-allures" class="tab-panel" hidden>
+<div class="wrap">
+<section class="outil"><h2>Chrono ↔ allure</h2>
+<p class="outil-note">42,195 km. Renseignez l'un des deux champs, l'autre se calcule.</p>
+<div class="outil-row"><label for="conv-temps">Temps cible</label><input type="text" class="outil-input" id="conv-temps" inputmode="numeric" placeholder="h:mm:ss"></div>
+<div class="outil-row"><label for="conv-allure">Allure / km</label><input type="text" class="outil-input" id="conv-allure" inputmode="numeric" placeholder="m:ss"></div>
+</section>
+<section class="outil"><h2>Splits — négatif split</h2>
+<p class="outil-note">Objectif 3 h 30. 10 premiers km à 5:05, rattrapage après le 30<sup>e</sup>. Départ 9 h 30.</p>
+<table class="splits"><thead><tr><th>Km</th><th>Allure</th><th>Cumulé</th><th>Passage</th></tr></thead><tbody id="splits-body"></tbody></table>
+</section>
+</div>
+</div>
+<script>
+(function(){
+'use strict';
+
+var STORAGE_KEY = 'marathonVannesState';
+var DIST = 42.195;
+
+var SEMAINES_KM = {s1:55,s2:60,s3:53,s4:64,s5:53,s6:35};
+var BAR_HEIGHT_PX = {s1:48,s2:52,s3:46,s4:56,s5:46,s6:31};
+var SEMAINE_DATES = {
+ s1:['2026-08-17','2026-08-18','2026-08-19','2026-08-20','2026-08-21','2026-08-22','2026-08-23'],
+ s2:['2026-08-24','2026-08-25','2026-08-26','2026-08-27','2026-08-28','2026-08-29','2026-08-30'],
+ s3:['2026-08-31','2026-09-01','2026-09-02','2026-09-03','2026-09-04','2026-09-05','2026-09-06'],
+ s4:['2026-09-07','2026-09-08','2026-09-09','2026-09-10','2026-09-11','2026-09-12','2026-09-13'],
+ s5:['2026-09-14','2026-09-15','2026-09-16','2026-09-17','2026-09-18','2026-09-19','2026-09-20'],
+ s6:['2026-09-21','2026-09-22','2026-09-23','2026-09-24','2026-09-25','2026-09-26','2026-09-27']
+};
+
+function loadState(){
+ try{
+  var raw = localStorage.getItem(STORAGE_KEY);
+  if(!raw) return {seances:{}};
+  var parsed = JSON.parse(raw);
+  if(!parsed.seances) parsed.seances = {};
+  return parsed;
+ }catch(e){ return {seances:{}}; }
+}
+var state = loadState();
+function saveState(){
+ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+}
+function seance(date){
+ if(!state.seances[date]) state.seances[date] = {};
+ return state.seances[date];
+}
+
+function pad2(n){ return String(n).padStart(2,'0'); }
+function toSec(mmss){
+ var p = String(mmss).trim().split(':').map(Number);
+ if(p.some(function(x){return isNaN(x);})) return NaN;
+ if(p.length===2) return p[0]*60+p[1];
+ if(p.length===3) return p[0]*3600+p[1]*60+p[2];
+ return NaN;
+}
+function secToMMSS(s){ s=Math.round(s); var m=Math.floor(s/60), sec=s%60; return m+':'+pad2(sec); }
+function secToHMS(s){ s=Math.round(s); var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return h+':'+pad2(m)+':'+pad2(sec); }
+function secToDuree(s){ return s>=3600 ? secToHMS(s) : secToMMSS(s); }
+function secToClock(s){ s=Math.round(s)%86400; var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), sec=s%60; return pad2(h)+':'+pad2(m)+':'+pad2(sec); }
+function todayISO(){ var d=new Date(); return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate()); }
+
+function parseCible(text){
+ var m = text.match(/\d{1,2}:\d{2}/g);
+ if(!m || !m.length) return null;
+ if(m.length>=2) return Math.round((toSec(m[m.length-2])+toSec(m[m.length-1]))/2);
+ return toSec(m[0]);
+}
+
+function initJours(){
+ document.querySelectorAll('.jour[data-date]').forEach(function(jour){
+  var date = jour.dataset.date;
+  var estRepos = jour.classList.contains('repos');
+  if(date === todayISO()) jour.classList.add('aujourdhui');
+  var coche = jour.querySelector('.coche');
+  if(coche){
+   coche.addEventListener('click', function(e){ e.stopPropagation(); cycleStatut(date, coche); });
+  }
+  if(!estRepos){
+   var corps = jour.querySelector('.jour-corps');
+   if(corps) corps.addEventListener('click', function(){ toggleFiche(jour, date); });
+  }
+ });
+}
+
+function cycleStatut(date, coche){
+ var s = seance(date);
+ var ordre = ['prevu','fait','manque'];
+ var i = ordre.indexOf(s.statut || 'prevu');
+ s.statut = ordre[(i+1)%3];
+ coche.dataset.statut = s.statut;
+ saveState();
+ majAlerteTibias();
+ majBarres();
+}
+
+function toggleFiche(jour, date){
+ var fiche = jour.querySelector('.fiche');
+ if(!fiche){ fiche = construireFiche(jour, date); jour.querySelector('.jour-corps').appendChild(fiche); }
+ fiche.hidden = !fiche.hidden;
+}
+
+function construireFiche(jour, date){
+ var cibleEl = jour.querySelector('.jour-allure');
+ var cibleSec = cibleEl ? parseCible(cibleEl.textContent) : null;
+
+ var fiche = document.createElement('div');
+ fiche.className = 'fiche';
+ fiche.hidden = true;
+ fiche.innerHTML =
+  '<div class="fiche-grid">' +
+   '<div class="fiche-champ"><label>Distance (km)</label><input type="number" step="0.1" min="0" inputmode="decimal" class="f-distance" placeholder="0,0"></div>' +
+   '<div class="fiche-champ"><label>Durée (min)</label><input type="number" step="0.1" min="0" inputmode="decimal" class="f-duree" placeholder="0"></div>' +
+   '<div class="fiche-champ pleine"><label>Allure (min:s / km)</label><input type="text" inputmode="numeric" class="f-allure" placeholder="m:ss"></div>' +
+  '</div>' +
+  '<div class="fiche-ecart" hidden></div>' +
+  '<div class="fiche-champ" style="margin-top:.75rem"><label>Ressenti (1–5)</label><div class="fiche-scale f-ressenti"></div></div>' +
+  '<div class="fiche-champ" style="margin-top:.75rem"><label>Douleur tibia (0–3)</label><div class="fiche-scale f-douleur"></div></div>' +
+  '<div class="fiche-champ" style="margin-top:.75rem"><label>Note</label><textarea class="f-note" rows="2" maxlength="200"></textarea></div>';
+
+ var elDistance = fiche.querySelector('.f-distance');
+ var elDuree = fiche.querySelector('.f-duree');
+ var elAllure = fiche.querySelector('.f-allure');
+ var elEcart = fiche.querySelector('.fiche-ecart');
+ var elNote = fiche.querySelector('.f-note');
+ var elRessenti = fiche.querySelector('.f-ressenti');
+ var elDouleur = fiche.querySelector('.f-douleur');
+
+ for(var i=1;i<=5;i++){ var b=document.createElement('button'); b.type='button'; b.textContent=String(i); b.dataset.val=i; elRessenti.appendChild(b); }
+ for(var j=0;j<=3;j++){ var b2=document.createElement('button'); b2.type='button'; b2.textContent=String(j); b2.dataset.val=j; elDouleur.appendChild(b2); }
+
+ function rafraichir(){
+  var sd = seance(date);
+  elDistance.value = sd.distance_km!=null ? sd.distance_km : '';
+  elDuree.value = sd.duree_min!=null ? sd.duree_min : '';
+  elAllure.value = sd.allure_s!=null ? secToMMSS(sd.allure_s) : '';
+  elNote.value = sd.note || '';
+  Array.prototype.forEach.call(elRessenti.children, function(btn){ btn.setAttribute('aria-pressed', String(Number(btn.dataset.val)===sd.ressenti)); });
+  Array.prototype.forEach.call(elDouleur.children, function(btn){ btn.setAttribute('aria-pressed', String(Number(btn.dataset.val)===sd.douleur)); });
+  if(cibleSec && sd.allure_s){
+   var ecart = Math.round(sd.allure_s - cibleSec);
+   var signe = ecart>0 ? '+' : (ecart<0 ? '−' : '±');
+   elEcart.hidden = false;
+   elEcart.innerHTML = 'Écart vs allure cible : <span class="'+(ecart>0?'plus':'moins')+'">'+signe+Math.abs(ecart)+' s/km</span>';
+  } else {
+   elEcart.hidden = true;
+  }
+ }
+ rafraichir();
+
+ function majChamps(recalculerAllure){
+  var sd = seance(date);
+  var d = parseFloat(elDistance.value);
+  var t = parseFloat(elDuree.value);
+  sd.distance_km = isNaN(d) ? undefined : d;
+  sd.duree_min = isNaN(t) ? undefined : t;
+  if(recalculerAllure && !isNaN(d) && !isNaN(t) && d>0){
+   sd.allure_s = Math.round((t*60)/d);
+  }
+  saveState();
+  rafraichir();
+  majBarres();
+ }
+
+ elDistance.addEventListener('change', function(){ majChamps(true); });
+ elDuree.addEventListener('change', function(){ majChamps(true); });
+ elAllure.addEventListener('change', function(){
+  var v = toSec(elAllure.value);
+  if(!isNaN(v)){ var sd=seance(date); sd.allure_s=v; saveState(); rafraichir(); }
+ });
+ elNote.addEventListener('change', function(){ seance(date).note = elNote.value.slice(0,200); saveState(); });
+ elRessenti.addEventListener('click', function(e){
+  var btn = e.target.closest('button'); if(!btn) return;
+  seance(date).ressenti = Number(btn.dataset.val); saveState(); rafraichir();
+ });
+ elDouleur.addEventListener('click', function(e){
+  var btn = e.target.closest('button'); if(!btn) return;
+  seance(date).douleur = Number(btn.dataset.val); saveState(); rafraichir(); majAlerteTibias();
+ });
+ fiche.addEventListener('click', function(e){ e.stopPropagation(); });
+
+ return fiche;
+}
+
+function majBarres(){
+ Object.keys(SEMAINE_DATES).forEach(function(sid){
+  var reel = 0;
+  SEMAINE_DATES[sid].forEach(function(d){ var sd=state.seances[d]; if(sd && sd.distance_km) reel += sd.distance_km; });
+  var prevu = SEMAINES_KM[sid];
+  var trackH = BAR_HEIGHT_PX[sid];
+  var ratio = Math.min(reel/prevu, 1);
+  var realEl = document.getElementById('bar-real-'+sid);
+  if(realEl) realEl.style.height = Math.round(trackH*ratio)+'px';
+  var numEl = document.getElementById('bar-num-'+sid);
+  if(numEl) numEl.textContent = Math.round(reel)+'/'+prevu;
+ });
+}
+
+function majAlerteTibias(){
+ var bandeau = document.getElementById('bandeau');
+ var dates = Object.keys(state.seances).filter(function(d){ return state.seances[d].douleur!=null; }).sort();
+ if(dates.length>=2){
+  var a = state.seances[dates[dates.length-2]].douleur;
+  var b = state.seances[dates[dates.length-1]].douleur;
+  if(a>=2 && b>=2){ bandeau.hidden = false; return; }
+ }
+ bandeau.hidden = true;
+}
+
+function initTabs(){
+ var btns = document.querySelectorAll('.tab-btn');
+ btns.forEach(function(btn){
+  btn.addEventListener('click', function(){
+   btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b===btn)); });
+   document.getElementById('tab-plan').hidden = btn.dataset.tab!=='plan';
+   document.getElementById('tab-allures').hidden = btn.dataset.tab!=='allures';
+  });
+ });
+}
+
+function parseHMS(str){
+ str = String(str).trim();
+ if(!str) return null;
+ var p = str.split(':').map(Number);
+ if(p.some(function(x){return isNaN(x);})) return null;
+ if(p.length===3) return p[0]*3600+p[1]*60+p[2];
+ if(p.length===2) return p[0]*60+p[1];
+ return null;
+}
+
+function initConvertisseur(){
+ var elTemps = document.getElementById('conv-temps');
+ var elAllure = document.getElementById('conv-allure');
+ function depuisTemps(){ var t=parseHMS(elTemps.value); if(t!=null && t>0) elAllure.value = secToMMSS(t/DIST); }
+ function depuisAllure(){ var a=toSec(elAllure.value); if(!isNaN(a) && a>0) elTemps.value = secToHMS(a*DIST); }
+ elTemps.addEventListener('input', depuisTemps);
+ elAllure.addEventListener('input', depuisAllure);
+ elTemps.value = '3:30:00';
+ depuisTemps();
+}
+
+function initSplits(){
+ var depart = 9*3600+30*60;
+ var paceAvant = 305;
+ var paceMarathon = 298;
+ var totalObjectif = 3*3600+30*60;
+ var tAvant = 10*paceAvant;
+ var cumule30 = tAvant + 20*paceMarathon;
+ var paceRattrapage = (totalObjectif - cumule30) / (DIST-30);
+
+ function paceAt(km){ if(km<=10) return paceAvant; if(km<=30) return paceMarathon; return paceRattrapage; }
+ function cumuleAt(km){ if(km<=10) return km*paceAvant; if(km<=30) return tAvant+(km-10)*paceMarathon; return cumule30+(km-30)*paceRattrapage; }
+
+ var jalons = [5,10,15,20,25,30,35,40,DIST];
+ var tbody = document.getElementById('splits-body');
+ tbody.innerHTML = jalons.map(function(km){
+  var cum = cumuleAt(km);
+  var label = Number.isInteger(km) ? String(km) : km.toFixed(3).replace('.', ',');
+  return '<tr><td>'+label+'</td><td>'+secToMMSS(paceAt(km))+'</td><td>'+secToDuree(cum)+'</td><td>'+secToClock(depart+cum)+'</td></tr>';
+ }).join('');
+}
+
+function appliquerEtatInitial(){
+ document.querySelectorAll('.jour[data-date]').forEach(function(jour){
+  var sd = state.seances[jour.dataset.date];
+  if(!sd) return;
+  var coche = jour.querySelector('.coche');
+  if(coche && sd.statut) coche.dataset.statut = sd.statut;
+ });
+}
+
+function ouvrirAujourdhui(){
+ var today = document.querySelector('.jour[data-date="'+todayISO()+'"]');
+ if(!today) return;
+ var details = today.closest('details.semaine');
+ if(details) details.open = true;
+ requestAnimationFrame(function(){ today.scrollIntoView({block:'center'}); });
+}
+
+function init(){
+ initTabs();
+ initJours();
+ appliquerEtatInitial();
+ majBarres();
+ majAlerteTibias();
+ initConvertisseur();
+ initSplits();
+ ouvrirAujourdhui();
+}
+
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+
+})();
+</script>
 </body>
 </html>
