@@ -72,21 +72,23 @@ details[open] .chev{transform:rotate(-135deg);margin-top:3px}
 .jour-corps{flex:1;min-width:0;cursor:pointer}
 .jour.repos .jour-corps,.jour.aujourdhui .jour-corps{cursor:default}
 .jour.aujourdhui{background:var(--pli)}
-.jour-strava{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--estompe);margin-top:.3rem;letter-spacing:.02em}
 .fiche{margin-top:.75rem;padding:.9rem;background:var(--pli);border:1px solid var(--brume);border-radius:2px}
 .fiche[hidden]{display:none}
-.fiche-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem .8rem}
+.fiche-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem .8rem}
 .fiche-champ{display:flex;flex-direction:column;gap:.25rem}
+.fiche-champ.pleine{grid-column:1 / -1}
 .fiche-champ label{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.625rem;letter-spacing:.08em;text-transform:uppercase;color:var(--estompe)}
 .fiche-champ input,.fiche-champ textarea{font:inherit;font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.8125rem;padding:.5rem .55rem;border:1px solid var(--brume);border-radius:2px;background:var(--ivoire);color:var(--encre);min-height:44px}
 .fiche-champ textarea{font-family:"DM Sans",sans-serif;resize:vertical}
+.fiche-grid .fiche-champ input{font-size:1.125rem;font-weight:500;padding:.6rem .65rem;min-height:52px;text-align:center;border-color:var(--estompe)}
+.fiche-grid .fiche-champ input:focus{border-color:var(--or);outline:none}
+.fiche-grid .fiche-champ input::placeholder{color:var(--brume);font-weight:300}
 .fiche-ecart{margin-top:.75rem;padding-top:.75rem;border-top:1px dotted var(--brume);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.8125rem}
 .fiche-ecart .plus{color:var(--estompe)}
 .fiche-ecart .moins{color:var(--or)}
 .fiche-scale{display:flex;gap:.4rem;margin-top:.3rem}
 .fiche-scale button{flex:1;min-height:40px;border:1px solid var(--brume);background:var(--ivoire);font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.75rem;color:var(--estompe);border-radius:2px;cursor:pointer}
 .fiche-scale button[aria-pressed="true"]{background:var(--or);border-color:var(--or);color:var(--ivoire)}
-.fiche-source{font-size:.6875rem;color:var(--estompe);margin-top:.5rem;font-style:italic}
 .jour-tete{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap}
 .jour-date{font-family:"DM Mono",ui-monospace,Menlo,monospace;font-size:.6875rem;color:var(--estompe);letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .jour-titre{font-size:.9375rem}
@@ -344,8 +346,6 @@ a:focus-visible,summary:focus-visible,input:focus-visible,button:focus-visible,t
 'use strict';
 
 var STORAGE_KEY = 'marathonVannesState';
-var STRAVA_ENDPOINT = 'https://TON-WORKER.workers.dev/activites';
-var CACHE_MS = 15*60*1000;
 var DIST = 42.195;
 
 var SEMAINES_KM = {s1:55,s2:60,s3:53,s4:64,s5:53,s6:35};
@@ -362,11 +362,11 @@ var SEMAINE_DATES = {
 function loadState(){
  try{
   var raw = localStorage.getItem(STORAGE_KEY);
-  if(!raw) return {seances:{}, stravaCache:null};
+  if(!raw) return {seances:{}};
   var parsed = JSON.parse(raw);
   if(!parsed.seances) parsed.seances = {};
   return parsed;
- }catch(e){ return {seances:{}, stravaCache:null}; }
+ }catch(e){ return {seances:{}}; }
 }
 var state = loadState();
 function saveState(){
@@ -419,7 +419,6 @@ function cycleStatut(date, coche){
  var ordre = ['prevu','fait','manque'];
  var i = ordre.indexOf(s.statut || 'prevu');
  s.statut = ordre[(i+1)%3];
- s.statutManuel = true;
  coche.dataset.statut = s.statut;
  saveState();
  majAlerteTibias();
@@ -441,22 +440,20 @@ function construireFiche(jour, date){
  fiche.hidden = true;
  fiche.innerHTML =
   '<div class="fiche-grid">' +
-   '<div class="fiche-champ"><label>Distance (km)</label><input type="number" step="0.1" inputmode="decimal" class="f-distance"></div>' +
-   '<div class="fiche-champ"><label>Durée (min)</label><input type="number" step="0.1" inputmode="decimal" class="f-duree"></div>' +
-   '<div class="fiche-champ"><label>Allure (min:s/km)</label><input type="text" inputmode="numeric" class="f-allure" placeholder="m:ss"></div>' +
+   '<div class="fiche-champ"><label>Distance (km)</label><input type="number" step="0.1" min="0" inputmode="decimal" class="f-distance" placeholder="0,0"></div>' +
+   '<div class="fiche-champ"><label>Durée (min)</label><input type="number" step="0.1" min="0" inputmode="decimal" class="f-duree" placeholder="0"></div>' +
+   '<div class="fiche-champ pleine"><label>Allure (min:s / km)</label><input type="text" inputmode="numeric" class="f-allure" placeholder="m:ss"></div>' +
   '</div>' +
   '<div class="fiche-ecart" hidden></div>' +
   '<div class="fiche-champ" style="margin-top:.75rem"><label>Ressenti (1–5)</label><div class="fiche-scale f-ressenti"></div></div>' +
   '<div class="fiche-champ" style="margin-top:.75rem"><label>Douleur tibia (0–3)</label><div class="fiche-scale f-douleur"></div></div>' +
-  '<div class="fiche-champ" style="margin-top:.75rem"><label>Note</label><textarea class="f-note" rows="2" maxlength="200"></textarea></div>' +
-  '<div class="fiche-source"></div>';
+  '<div class="fiche-champ" style="margin-top:.75rem"><label>Note</label><textarea class="f-note" rows="2" maxlength="200"></textarea></div>';
 
  var elDistance = fiche.querySelector('.f-distance');
  var elDuree = fiche.querySelector('.f-duree');
  var elAllure = fiche.querySelector('.f-allure');
  var elEcart = fiche.querySelector('.fiche-ecart');
  var elNote = fiche.querySelector('.f-note');
- var elSource = fiche.querySelector('.fiche-source');
  var elRessenti = fiche.querySelector('.f-ressenti');
  var elDouleur = fiche.querySelector('.f-douleur');
 
@@ -471,7 +468,6 @@ function construireFiche(jour, date){
   elNote.value = sd.note || '';
   Array.prototype.forEach.call(elRessenti.children, function(btn){ btn.setAttribute('aria-pressed', String(Number(btn.dataset.val)===sd.ressenti)); });
   Array.prototype.forEach.call(elDouleur.children, function(btn){ btn.setAttribute('aria-pressed', String(Number(btn.dataset.val)===sd.douleur)); });
-  elSource.textContent = sd.source==='strava' ? 'Rempli automatiquement depuis Strava.' : '';
   if(cibleSec && sd.allure_s){
    var ecart = Math.round(sd.allure_s - cibleSec);
    var signe = ecart>0 ? '+' : (ecart<0 ? '−' : '±');
@@ -492,8 +488,6 @@ function construireFiche(jour, date){
   if(recalculerAllure && !isNaN(d) && !isNaN(t) && d>0){
    sd.allure_s = Math.round((t*60)/d);
   }
-  sd.source = 'manuel';
-  sd.donneesManuelles = true;
   saveState();
   rafraichir();
   majBarres();
@@ -503,7 +497,7 @@ function construireFiche(jour, date){
  elDuree.addEventListener('change', function(){ majChamps(true); });
  elAllure.addEventListener('change', function(){
   var v = toSec(elAllure.value);
-  if(!isNaN(v)){ var sd=seance(date); sd.allure_s=v; sd.source='manuel'; sd.donneesManuelles=true; saveState(); rafraichir(); }
+  if(!isNaN(v)){ var sd=seance(date); sd.allure_s=v; saveState(); rafraichir(); }
  });
  elNote.addEventListener('change', function(){ seance(date).note = elNote.value.slice(0,200); saveState(); });
  elRessenti.addEventListener('click', function(e){
@@ -597,68 +591,12 @@ function initSplits(){
  }).join('');
 }
 
-function appliquerActivites(activites){
- if(!Array.isArray(activites)) return;
- var parDate = {};
- activites.forEach(function(a){
-  if(!a || !a.date) return;
-  var d = a.date.slice(0,10);
-  if(!parDate[d] || a.distance_m > parDate[d].distance_m) parDate[d] = a;
- });
- var touche = false;
- Object.keys(parDate).forEach(function(date){
-  var jour = document.querySelector('.jour[data-date="'+date+'"]');
-  if(!jour) return;
-  var sd = seance(date);
-  if(sd.donneesManuelles) return;
-  var act = parDate[date];
-  sd.distance_km = Math.round((act.distance_m/1000)*100)/100;
-  sd.duree_min = Math.round((act.moving_time_s/60)*10)/10;
-  sd.allure_s = Math.round(act.moving_time_s / (act.distance_m/1000));
-  sd.source = 'strava';
-  if(jour.classList.contains('repos')){
-   var el = jour.querySelector('.jour-strava');
-   if(!el){ el = document.createElement('div'); el.className='jour-strava'; jour.querySelector('.jour-corps').appendChild(el); }
-   el.textContent = sd.distance_km+' km · '+Math.round(sd.duree_min)+' min';
-  } else if((sd.statut||'prevu')==='prevu' && !sd.statutManuel){
-   sd.statut = 'fait';
-   var coche = jour.querySelector('.coche');
-   if(coche) coche.dataset.statut = 'fait';
-  }
-  touche = true;
- });
- if(touche){ saveState(); majBarres(); }
-}
-
-function fetchStrava(){
- var now = Date.now();
- if(state.stravaCache && (now - state.stravaCache.ts) < CACHE_MS){
-  appliquerActivites(state.stravaCache.activites);
-  return;
- }
- fetch(STRAVA_ENDPOINT, {mode:'cors'}).then(function(res){
-  if(!res.ok) throw new Error('reponse worker non ok');
-  return res.json();
- }).then(function(activites){
-  state.stravaCache = {ts: now, activites: activites};
-  saveState();
-  appliquerActivites(activites);
- }).catch(function(){
-  // worker injoignable : saisie manuelle uniquement, aucun blocage
- });
-}
-
 function appliquerEtatInitial(){
  document.querySelectorAll('.jour[data-date]').forEach(function(jour){
   var sd = state.seances[jour.dataset.date];
   if(!sd) return;
   var coche = jour.querySelector('.coche');
   if(coche && sd.statut) coche.dataset.statut = sd.statut;
-  if(sd.distance_km!=null && jour.classList.contains('repos')){
-   var el = jour.querySelector('.jour-strava');
-   if(!el){ el = document.createElement('div'); el.className='jour-strava'; jour.querySelector('.jour-corps').appendChild(el); }
-   el.textContent = sd.distance_km+' km · '+Math.round(sd.duree_min||0)+' min';
-  }
  });
 }
 
@@ -678,7 +616,6 @@ function init(){
  majAlerteTibias();
  initConvertisseur();
  initSplits();
- fetchStrava();
  ouvrirAujourdhui();
 }
 
